@@ -9,12 +9,12 @@ namespace System
     {
         private const string InvalidExpression = "Invalid expression.";
         private static readonly string DecimalSeparator = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator;
-        private static bool _floatingPointExpression;
+        private static bool floatingPointExpression;
 
         public static string Calculate(this string equation)
         {
             equation = RemoveSpaces(equation);
-            _floatingPointExpression = equation.Contains(DecimalSeparator[0]);
+            floatingPointExpression = equation.Contains(DecimalSeparator[0]);
             if (!ParenthesisIsValid(equation)) return InvalidExpression;
             equation = EvaluateParenthesisedPiecesOfEquation(equation);
             return WeightedCalculate(equation);
@@ -128,7 +128,7 @@ namespace System
                 {
                     WriteDebugMessageAndArray($"Looking at = '{list[itemIndex]}'.\tLooking for = '{mathsOp.ToString()}'.\t", list);
                     if (list[itemIndex] != mathsOp.ToString()) continue;
-                    list[itemIndex] = _floatingPointExpression
+                    list[itemIndex] = floatingPointExpression
                         ? CalculateAsFloat(list[itemIndex - 1], list[itemIndex], list[itemIndex + 1])
                         : CalculateAsInteger(list[itemIndex - 1], list[itemIndex], list[itemIndex + 1]);
 
