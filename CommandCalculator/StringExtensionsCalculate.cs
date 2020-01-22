@@ -8,13 +8,13 @@ namespace System
     public static class StringExtensionsCalculate
     {
         private const string InvalidExpression = "Invalid expression.";
-        private static readonly string DecimalSeparator = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+        private static readonly char DecimalSeparator = Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator[0];
         private static bool floatingPointExpression;
 
         public static string Calculate(this string equation)
         {
             equation = RemoveSpaces(equation);
-            floatingPointExpression = equation.Contains(DecimalSeparator[0]);
+            floatingPointExpression = equation.Contains(DecimalSeparator);
             if (!ParenthesisIsValid(equation)) return InvalidExpression;
             equation = EvaluateParenthesisedPiecesOfEquation(equation);
             return WeightedCalculate(equation);
@@ -70,6 +70,7 @@ namespace System
             if (equation.Length == 0) return string.Empty;
 
             var list = BreakUpEquation(equation);
+            list = CheckForNegatives(list);
             try
             {
                 CondenseListByCalculating(list, "^");
@@ -87,34 +88,53 @@ namespace System
 
         private static List<string> BreakUpEquation(string equation)
         {
-            var item = string.Empty;
+            var stringRepresentingNumber = string.Empty;
             var list = new List<string>();
             foreach (var character in equation)
             {
-                if (int.TryParse(character.ToString(), out var _) || character == DecimalSeparator[0])
+                if (CanBeANumber(character))
                 {
-                    item += character;
+                    stringRepresentingNumber += character;
                 }
                 else
                 {
-                    if (item != string.Empty)
+                    if (stringRepresentingNumber != string.Empty)
                     {
-                        list.Add(item);
-                        item = string.Empty;
-                    }
-                    else if (character == '-')
-                    {
-                        item += character;
-                        continue;
+                        list.Add(stringRepresentingNumber);
+                        stringRepresentingNumber = string.Empty;
                     }
 
                     list.Add(character.ToString());
                 }
             }
 
-            if (item != string.Empty) list.Add(item);
+            if (stringRepresentingNumber != string.Empty) list.Add(stringRepresentingNumber);
 
             return list;
+        }
+
+        private static bool CanBeANumber(char character)
+        {
+            return (int.TryParse(character.ToString(), out var _)  || character == DecimalSeparator);
+        }
+
+        private static List<string> CheckForNegatives(List<string> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i] == "-" && (i == 0 || !IsANumber(list[i - 1])))
+                {
+                    list[i + 1] = "-" + list[i + 1];
+                    list.RemoveAt(i);
+                }
+            }
+
+            return list;
+        }
+
+        private static bool IsANumber(string characters)
+        {
+            return int.TryParse(characters, out var _)  || float.TryParse(characters, out var _);
         }
 
         private static void CondenseListByCalculating(IList<string> list, string mathsOperator)

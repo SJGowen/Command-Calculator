@@ -37,6 +37,7 @@ namespace CommandCalculatorTests
         }
 
         [Theory]
+        [InlineData("-23", "-23")]
         [InlineData("-46", "-23+-23")]
         [InlineData("0", "-23--23")]
         [InlineData("0", "-23+23")]
