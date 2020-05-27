@@ -92,7 +92,7 @@ namespace System
             var list = new List<string>();
             foreach (var character in equation)
             {
-                if (CanBeANumber(character))
+                if (IsCharacterNumericOrDecimalSeparator(character))
                 {
                     stringRepresentingNumber += character;
                 }
@@ -113,7 +113,7 @@ namespace System
             return list;
         }
 
-        private static bool CanBeANumber(char character)
+        private static bool IsCharacterNumericOrDecimalSeparator(char character)
         {
             return (int.TryParse(character.ToString(), out var _)  || character == DecimalSeparator);
         }
