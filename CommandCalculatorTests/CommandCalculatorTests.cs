@@ -20,6 +20,7 @@ namespace CommandCalculatorTests
         [InlineData("13", "1+2+3 + 3 +4%5")]
         [InlineData("7", "1+2+5 % 3 +12%5")]
         [InlineData("21", "1+4^2+5 % 3 +12%5")]
+        [InlineData("21", "1+4**2+5 % 3 +12%5")]
         public void CalculationsTests(string expectedResult, string equation)
         {
             var result = equation.Calculate();
@@ -30,6 +31,7 @@ namespace CommandCalculatorTests
         [InlineData("3", "1+5-(6/2)")]
         [InlineData("14", "10+5-((8/2)-(6/2))")]
         [InlineData("9", "10+5-(6/2)-(6/2)")]
+        [InlineData("22", "10+5(6/2)-(6/2)")]
         public void CalculationsWithBracketsTests(string expectedResult, string equation)
         {
             var result = equation.Calculate();

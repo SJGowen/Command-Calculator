@@ -14,6 +14,7 @@ namespace System
         public static string Calculate(this string equation)
         {
             equation = RemoveSpaces(equation);
+            equation = ReplaceDoubleStarWithUpArrow(equation);
             floatingPointExpression = equation.Contains(DecimalSeparator);
             if (!ParenthesisIsValid(equation)) return InvalidExpression;
             equation = EvaluateParenthesisedPiecesOfEquation(equation);
@@ -23,6 +24,11 @@ namespace System
         private static string RemoveSpaces(string equation)
         {
             return equation.Replace(" ", string.Empty);
+        }
+
+        private static string ReplaceDoubleStarWithUpArrow(string equation)
+        {
+            return equation.Replace("**", "^");
         }
 
         private static bool ParenthesisIsValid(string equation)
@@ -59,10 +65,28 @@ namespace System
 
                 var subEquation = equation.Substring(startIndex, length);
                 var result = WeightedCalculate(subEquation);
-                equation = equation.Replace("(" + subEquation + ")", result);
+                result = ReplaceNoOpBeforeBracketsWithTimes(equation, startIndex - 1, result);
+                equation = equation.Substring(0, startIndex - 1) + result + equation.Substring(startIndex + length + 1);
             }
 
             return equation;
+        }
+
+        private static string ReplaceNoOpBeforeBracketsWithTimes(string equation, int startIndex, string result)
+        {
+            if (startIndex > 0 && IsANumber(equation[startIndex - 1]))
+                result = "*" + result;
+            return result;
+        }
+
+        private static bool IsANumber(char character)
+        {
+            return IsANumber(character.ToString());
+        }
+
+        private static bool IsANumber(string characters)
+        {
+            return int.TryParse(characters, out var _) || float.TryParse(characters, out var _);
         }
 
         private static string WeightedCalculate(string equation)
@@ -130,11 +154,6 @@ namespace System
             }
 
             return list;
-        }
-
-        private static bool IsANumber(string characters)
-        {
-            return int.TryParse(characters, out var _)  || float.TryParse(characters, out var _);
         }
 
         private static void CondenseListByCalculating(IList<string> list, string mathsOperator)
