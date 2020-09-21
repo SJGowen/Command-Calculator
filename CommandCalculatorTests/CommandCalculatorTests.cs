@@ -60,6 +60,7 @@ namespace CommandCalculatorTests
         [InlineData("Invalid expression.", "1+(2O4/-63)")]
         [InlineData("Invalid expression.", ")3+5(")]
         [InlineData("Invalid expression.", "-23---23")]
+        [InlineData("Invalid expression.", "7/0")]
         public void CalculationsWithErrorsTests(string expectedResult, string equation)
         {
             var result = equation.Calculate();
