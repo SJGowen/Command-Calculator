@@ -23,8 +23,7 @@ namespace CommandCalculatorTests
         [InlineData("21", "1+4**2+5 % 3 +12%5")]
         public void CalculationsTests(string expectedResult, string equation)
         {
-            var result = equation.Calculate();
-            Assert.Equal(expectedResult, result);
+            Assert.Equal(expectedResult, equation.Calculate());
         }
 
         [Theory]
@@ -34,8 +33,7 @@ namespace CommandCalculatorTests
         [InlineData("22", "10+5(6/2)-(6/2)")]
         public void CalculationsWithBracketsTests(string expectedResult, string equation)
         {
-            var result = equation.Calculate();
-            Assert.Equal(expectedResult, result);
+            Assert.Equal(expectedResult, equation.Calculate());
         }
 
         [Theory]
@@ -47,8 +45,7 @@ namespace CommandCalculatorTests
         [InlineData("-4", "24/-6")]
         public void CalculationsWithNegativeNumbersTests(string expectedResult, string equation)
         {
-            var result = equation.Calculate();
-            Assert.Equal(expectedResult, result);
+            Assert.Equal(expectedResult, equation.Calculate());
         }
 
         [Theory]
@@ -63,8 +60,7 @@ namespace CommandCalculatorTests
         [InlineData("Invalid expression.", "7/0")]
         public void CalculationsWithErrorsTests(string expectedResult, string equation)
         {
-            var result = equation.Calculate();
-            Assert.Equal(expectedResult, result);
+            Assert.Equal(expectedResult, equation.Calculate());
         }
 
         [Theory]
@@ -75,8 +71,7 @@ namespace CommandCalculatorTests
         [InlineData("27.00", "3.0^3")]
         public void CalculationsForFloatingPointTests(string expectedResult, string equation)
         {
-            var result = equation.Calculate();
-            Assert.Equal(expectedResult, result);
+            Assert.Equal(expectedResult, equation.Calculate());
         }
     }
 }

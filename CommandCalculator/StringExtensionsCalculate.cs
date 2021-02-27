@@ -165,7 +165,7 @@ namespace System
             {
                 foreach (var mathsOp in mathsOperator)
                 {
-                    WriteDebugMessageAndArray($"Looking at = '{list[itemIndex]}'.\tLooking for = '{mathsOp.ToString()}'.\t", list);
+                    WriteDebugMessageAndArray($"Looking at = '{list[itemIndex]}'.\tLooking for = '{mathsOp}'.\t", list);
                     if (list[itemIndex] != mathsOp.ToString()) continue;
                     list[itemIndex] = floatingPointExpression
                         ? CalculateAsFloat(list[itemIndex - 1], list[itemIndex], list[itemIndex + 1])
@@ -212,11 +212,11 @@ namespace System
             switch (operation)
             {
                 case "^": return Math.Pow(integer1, integer2).ToString("F0");
-                case "*": return (integer1 * integer2).ToString();
-                case "/": return (integer1 / integer2).ToString();
-                case "%": return (integer1 % integer2).ToString();
-                case "+": return (integer1 + integer2).ToString();
-                case "-": return (integer1 - integer2).ToString();
+                case "*": return (integer1 * integer2).ToString("F0");
+                case "/": return (integer1 / integer2).ToString("F0");
+                case "%": return (integer1 % integer2).ToString("F0");
+                case "+": return (integer1 + integer2).ToString("F0");
+                case "-": return (integer1 - integer2).ToString("F0");
                 default: return InvalidExpression;
             }
         }
