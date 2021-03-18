@@ -22,25 +22,15 @@ namespace System
             return WeightedCalculate(equation);
         }
 
-        private static string RemoveSpaces(string equation)
-        {
-            return equation.Replace(" ", string.Empty);
-        }
+        private static string RemoveSpaces(string equation) => equation.Replace(" ", string.Empty);
 
-        private static string ReplaceDoubleStarWithUpArrow(string equation)
-        {
-            return equation.Replace("**", "^");
-        }
+        private static string ReplaceDoubleStarWithUpArrow(string equation) => equation.Replace("**", "^");
 
-        private static bool ParenthesisIsValid(string equation)
-        {
-            return equation.IndexOf('(') <= equation.IndexOf(')') && ParenthesisIsBalanced(equation);
-        }
+        private static bool ParenthesisIsValid(string equation) => 
+            equation.IndexOf('(') <= equation.IndexOf(')') && ParenthesisIsBalanced(equation);
 
-        private static bool ParenthesisIsBalanced(string equation)
-        {
-            return equation.Count(x => x == '(') == equation.Count(x => x == ')');
-        }
+        private static bool ParenthesisIsBalanced(string equation) => 
+            equation.Count(x => x == '(') == equation.Count(x => x == ')');
 
         private static string EvaluateParenthesisedPiecesOfEquation(string equation)
         {
@@ -80,15 +70,10 @@ namespace System
             return result;
         }
 
-        private static bool IsANumber(char character)
-        {
-            return IsANumber(character.ToString());
-        }
+        private static bool IsANumber(char character) => IsANumber(character.ToString());
 
-        private static bool IsANumber(string characters)
-        {
-            return int.TryParse(characters, out var _) || float.TryParse(characters, out var _);
-        }
+        private static bool IsANumber(string characters) => 
+            int.TryParse(characters, out var _) || float.TryParse(characters, out var _);
 
         private static string WeightedCalculate(string equation)
         {
@@ -138,10 +123,8 @@ namespace System
             return list;
         }
 
-        private static bool IsCharacterNumericOrDecimalSeparator(char character)
-        {
-            return (int.TryParse(character.ToString(), out var _)  || character == DecimalSeparator);
-        }
+        private static bool IsCharacterNumericOrDecimalSeparator(char character) => 
+            (int.TryParse(character.ToString(), out var _)  || character == DecimalSeparator);
 
         private static List<string> CheckForNegatives(List<string> list)
         {
@@ -185,10 +168,8 @@ namespace System
         }
 
         [Conditional("DEBUG")]
-        private static void WriteDebugMessageAndArray(string message, IEnumerable<string> list)
-        {
+        private static void WriteDebugMessageAndArray(string message, IEnumerable<string> list) =>
             Debug.WriteLine($"{message}list = '{string.Join(' ', list)}'.");
-        }
 
         private static string CalculateAsFloat(string number1, string operation, string number2)
         {
