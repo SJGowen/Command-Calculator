@@ -7,7 +7,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandCalculator", "Comman
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandPrompt", "CommandPrompt\CommandPrompt.csproj", "{45E1C47E-78F5-488F-B8F9-C0891E7099B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommandCalculatorTests", "CommandCalculatorTests\CommandCalculatorTests.csproj", "{BA30B4C0-4A45-497A-AF29-309D835CE2F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommandCalculatorTests", "CommandCalculatorTests\CommandCalculatorTests.csproj", "{BA30B4C0-4A45-497A-AF29-309D835CE2F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{340628C6-7482-4082-818C-A1F08167B14C}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

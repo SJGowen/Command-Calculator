@@ -16,7 +16,8 @@ namespace System
             equation = RemoveSpaces(equation);
             equation = ReplaceDoubleStarWithUpArrow(equation);
             floatingPointExpression = equation.Contains(DecimalSeparator);
-            if (!ParenthesisIsValid(equation)) return InvalidExpression;
+            if (!ParenthesisIsValid(equation)) 
+                return InvalidExpression;
             equation = EvaluateParenthesisedPiecesOfEquation(equation);
             return WeightedCalculate(equation);
         }
@@ -165,8 +166,8 @@ namespace System
             {
                 foreach (var mathsOp in mathsOperator)
                 {
-                    WriteDebugMessageAndArray($"Looking at = '{list[itemIndex]}'.\tLooking for = '{mathsOp.ToString()}'.\t", list);
                     if (list[itemIndex] != mathsOp.ToString()) continue;
+                    WriteDebugMessageAndArray($"Looking at = '{list[itemIndex]}'.\tLooking for = '{mathsOp}'.\t", list);
                     list[itemIndex] = floatingPointExpression
                         ? CalculateAsFloat(list[itemIndex - 1], list[itemIndex], list[itemIndex + 1])
                         : CalculateAsInteger(list[itemIndex - 1], list[itemIndex], list[itemIndex + 1]);
@@ -193,32 +194,32 @@ namespace System
         {
             if (!float.TryParse(number1, out var float1) ||
                 (!float.TryParse(number2, out var float2))) return InvalidExpression;
-            switch (operation)
+            return operation switch
             {
-                case "^": return Math.Pow(float1, float2).ToString("F");
-                case "*": return (float1 * float2).ToString("F");
-                case "/": return (float1 / float2).ToString("F");
-                case "%": return (float1 % float2).ToString("F");
-                case "+": return (float1 + float2).ToString("F");
-                case "-": return (float1 - float2).ToString("F");
-                default: return InvalidExpression;
-            }
+                "^" => Math.Pow(float1, float2).ToString("F"),
+                "*" => (float1 * float2).ToString("F"),
+                "/" => (float1 / float2).ToString("F"),
+                "%" => (float1 % float2).ToString("F"),
+                "+" => (float1 + float2).ToString("F"),
+                "-" => (float1 - float2).ToString("F"),
+                _ => InvalidExpression,
+            };
         }
 
         private static string CalculateAsInteger(string number1, string operation, string number2)
         {
             if (!int.TryParse(number1, out var integer1) ||
                 (!int.TryParse(number2, out var integer2))) return InvalidExpression;
-            switch (operation)
+            return operation switch
             {
-                case "^": return Math.Pow(integer1, integer2).ToString("F0");
-                case "*": return (integer1 * integer2).ToString();
-                case "/": return (integer1 / integer2).ToString();
-                case "%": return (integer1 % integer2).ToString();
-                case "+": return (integer1 + integer2).ToString();
-                case "-": return (integer1 - integer2).ToString();
-                default: return InvalidExpression;
-            }
+                "^" => Math.Pow(integer1, integer2).ToString("F0"),
+                "*" => (integer1 * integer2).ToString("F0"),
+                "/" => (integer1 / integer2).ToString("F0"),
+                "%" => (integer1 % integer2).ToString("F0"),
+                "+" => (integer1 + integer2).ToString("F0"),
+                "-" => (integer1 - integer2).ToString("F0"),
+                _ => InvalidExpression,
+            };
         }
     }
 }
