@@ -73,7 +73,7 @@ namespace System
         private static bool IsANumber(char character) => IsANumber(character.ToString());
 
         private static bool IsANumber(string characters) => 
-            int.TryParse(characters, out var _) || float.TryParse(characters, out var _);
+            int.TryParse(characters, out var _) || double.TryParse(characters, out var _);
 
         private static string WeightedCalculate(string equation)
         {
@@ -152,7 +152,7 @@ namespace System
                     if (list[itemIndex] != mathsOp.ToString()) continue;
                     WriteDebugMessageAndArray($"Looking at = '{list[itemIndex]}'.\tLooking for = '{mathsOp}'.\t", list);
                     list[itemIndex] = floatingPointExpression
-                        ? CalculateAsFloat(list[itemIndex - 1], list[itemIndex], list[itemIndex + 1])
+                        ? CalculateAsDouble(list[itemIndex - 1], list[itemIndex], list[itemIndex + 1])
                         : CalculateAsInteger(list[itemIndex - 1], list[itemIndex], list[itemIndex + 1]);
 
                     list.RemoveAt(itemIndex + 1);
@@ -171,18 +171,18 @@ namespace System
         private static void WriteDebugMessageAndArray(string message, IEnumerable<string> list) =>
             Debug.WriteLine($"{message}list = '{string.Join(' ', list)}'.");
 
-        private static string CalculateAsFloat(string number1, string operation, string number2)
+        private static string CalculateAsDouble(string number1, string operation, string number2)
         {
-            if (!float.TryParse(number1, out var float1) ||
-                (!float.TryParse(number2, out var float2))) return InvalidExpression;
+            if (!double.TryParse(number1, out var double1) ||
+                (!double.TryParse(number2, out var double2))) return InvalidExpression;
             return operation switch
             {
-                "^" => Math.Pow(float1, float2).ToString("F"),
-                "*" => (float1 * float2).ToString("F"),
-                "/" => (float1 / float2).ToString("F"),
-                "%" => (float1 % float2).ToString("F"),
-                "+" => (float1 + float2).ToString("F"),
-                "-" => (float1 - float2).ToString("F"),
+                "^" => Math.Pow(double1, double2).ToString("F"),
+                "*" => (double1 * double2).ToString("F"),
+                "/" => (double1 / double2).ToString("F"),
+                "%" => (double1 % double2).ToString("F"),
+                "+" => (double1 + double2).ToString("F"),
+                "-" => (double1 - double2).ToString("F"),
                 _ => InvalidExpression,
             };
         }
