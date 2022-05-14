@@ -54,8 +54,7 @@ namespace System
                     equationIndex++;
                 }
 
-                var subEquation = equation.Substring(startIndex, length);
-                var result = WeightedCalculate(subEquation);
+                var result = WeightedCalculate(equation.Substring(startIndex, length));
                 result = ReplaceNoOpBeforeBracketsWithTimes(equation, startIndex - 1, result);
                 equation = equation.Substring(0, startIndex - 1) + result + equation.Substring(startIndex + length + 1);
             }
@@ -189,8 +188,8 @@ namespace System
 
         private static string CalculateAsInteger(string number1, string operation, string number2)
         {
-            if (!int.TryParse(number1, out var integer1) ||
-                (!int.TryParse(number2, out var integer2))) return InvalidExpression;
+            if (!long.TryParse(number1, out var integer1) ||
+                (!long.TryParse(number2, out var integer2))) return InvalidExpression;
             return operation switch
             {
                 "^" => Math.Pow(integer1, integer2).ToString("F0"),
