@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
+using System;
 
 namespace System
 {
@@ -34,7 +35,7 @@ namespace System
 
         private static string EvaluateParenthesisedPiecesOfEquation(string equation)
         {
-            while (equation.Contains("("))
+            while (equation.Contains('('))
             {
                 var length = 0;
                 var startIndex = 0;
@@ -56,7 +57,7 @@ namespace System
 
                 var result = WeightedCalculate(equation.Substring(startIndex, length));
                 result = ReplaceNoOpBeforeBracketsWithTimes(equation, startIndex - 1, result);
-                equation = equation.Substring(0, startIndex - 1) + result + equation.Substring(startIndex + length + 1);
+                equation = string.Concat(equation.AsSpan(0, startIndex - 1), result, equation.AsSpan(startIndex + length + 1));
             }
 
             return equation;
