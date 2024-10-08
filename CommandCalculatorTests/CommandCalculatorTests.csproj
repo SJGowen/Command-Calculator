@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CommandCalculator\CommandCalculator.csproj" />
+    <ProjectReference Include="..\ReversePolishCalculator\ReversePolishCalculator.csproj" />
   </ItemGroup>
 
 </Project>

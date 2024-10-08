@@ -21,9 +21,11 @@ namespace CommandCalculatorTests
         [InlineData("7", "1+2+5 % 3 +12%5")]
         [InlineData("21", "1+4^2+5 % 3 +12%5")]
         [InlineData("21", "1+4**2+5 % 3 +12%5")]
+        [InlineData("7", "4 + 18 / (9 - 3)")]
         public void CalculationsTests(string expectedResult, string equation)
         {
             Assert.Equal(expectedResult, equation.Calculate());
+            Assert.Equal(expectedResult, equation.CalculateReversePolish());
         }
 
         [Theory]
@@ -34,6 +36,7 @@ namespace CommandCalculatorTests
         public void CalculationsWithBracketsTests(string expectedResult, string equation)
         {
             Assert.Equal(expectedResult, equation.Calculate());
+            Assert.Equal(expectedResult, equation.CalculateReversePolish());
         }
 
         [Theory]
@@ -46,6 +49,7 @@ namespace CommandCalculatorTests
         public void CalculationsWithNegativeNumbersTests(string expectedResult, string equation)
         {
             Assert.Equal(expectedResult, equation.Calculate());
+            Assert.Equal(expectedResult, equation.CalculateReversePolish());
         }
 
         [Theory]
@@ -61,6 +65,7 @@ namespace CommandCalculatorTests
         public void CalculationsWithErrorsTests(string expectedResult, string equation)
         {
             Assert.Equal(expectedResult, equation.Calculate());
+            Assert.Equal(expectedResult, equation.CalculateReversePolish());
         }
 
         [Theory]
@@ -72,6 +77,7 @@ namespace CommandCalculatorTests
         public void CalculationsForFloatingPointTests(string expectedResult, string equation)
         {
             Assert.Equal(expectedResult, equation.Calculate());
+            Assert.Equal(expectedResult, equation.CalculateReversePolish());
         }
     }
 }
