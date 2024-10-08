@@ -2,7 +2,7 @@
 
 A command line calculator that will evaluate an equation or string containing the following operators:
   1. Parenthesis ( and )
-  2. Power ^
+  2. Power ^ or **
   3. Division / Remainder % and Multiplcation *
   4. Addition + and Subtraction -
   
